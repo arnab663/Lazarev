@@ -1,0 +1,113 @@
+function navAnimation() {
+    var nav = document.querySelector("nav")
+
+    nav.addEventListener("mouseenter", function () {
+        let tl = gsap.timeline()
+
+        tl.to("#nav-bottom", {
+            height: "22.5vh",
+            duration: 0.5
+        })
+        tl.to(".nav-part2 h5", {
+            display: "block",
+            duration: 0.1
+
+        })
+        tl.to(".nav-part2 h5 span", {
+            y: 0,
+            // duration:0.3,
+            stagger: {
+                amount: 0.5
+            }
+        })
+    })
+    nav.addEventListener("mouseleave", function () {
+        let tl = gsap.timeline()
+        tl.to(".nav-part2 h5 span", {
+            y: 25,
+            stagger: {
+                amount: 0.2
+            }
+        })
+        tl.to(".nav-part2 h5", {
+            display: "none",
+            duration: 0.1
+        })
+        tl.to("#nav-bottom", {
+            height: 0,
+            duration: 0.3
+        })
+    })
+    let nav_button = document.querySelector("nav button")
+    nav_button.addEventListener("mouseenter",function(){
+        gsap.to("nav button",{
+            backgroundColor:"#111",
+        })
+        gsap.to("nav button svg",{
+            scale:"1.4"
+        })
+    })
+    nav_button.addEventListener("mouseleave",function(){
+        gsap.to(nav_button,{
+            backgroundColor:"#0BA34E",
+        })
+        gsap.to("nav button svg",{
+            scale:1
+        })
+    })
+}
+
+
+
+function page2Animation() {
+    var rightElems = document.querySelectorAll(".right-elem")
+
+    rightElems.forEach(function (elem) {
+        elem.addEventListener("mouseenter", function () {
+            gsap.to(elem.childNodes[3], {
+                opacity: 1,
+                scale: 1
+            })
+        })
+        elem.addEventListener("mouseleave", function () {
+            gsap.to(elem.childNodes[3], {
+                opacity: 0,
+                scale: 0
+            })
+        })
+        elem.addEventListener("mousemove",function(dets){
+            gsap.to(elem.childNodes[3],{
+                x:dets.x-elem.getBoundingClientRect().x-50,
+                y:dets.y-elem.getBoundingClientRect().y-100
+            })
+        })
+    })
+}
+
+
+function page3VideoAnimation() {
+    var page3Center = document.querySelector(".page3-center")
+    var video = document.querySelector("#page3 video")
+
+    page3Center.addEventListener("click", function () {
+        video.play()
+        gsap.to(video, {
+            transform: "scaleX(1) scaleY(1)",
+            opacity: 1,
+            borderRadius: 0
+        })
+    })
+    video.addEventListener("click", function () {
+        video.pause()
+        gsap.to(video, {
+            transform: "scaleX(0.7) scaleY(0)",
+            opacity: 0,
+            borderRadius: "30px"
+        })
+    })
+
+}
+
+navAnimation()
+page2Animation()
+page3VideoAnimation()
